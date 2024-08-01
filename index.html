@@ -1,14 +1,30 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Google Form</title>
+    <title>サンプルフォーム</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-    <h1>Welcome to my form</h1>
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdDmWVYccVBw2mbjCSpOoDugY8L1gT_P64q4PhGlRkrnbp35Q/viewform?embedded=true" width="640" height="685" frameborder="0" marginheight="0" marginwidth="0">        Loading…
-        Loading…
-    </iframe>
+    <form id="myForm" action="https://script.google.com/macros/s/AKfycbyeMBvTUUF81OchnYrsiS95KhB7-dp1625DLpgZfiFbXh4n0y7Jt0yfHXCMK1OIbHs/exec method="POST">
+        <input type="text" name="name" placeholder="名前" required><br>
+        <input type="email" name="email" placeholder="メールアドレス" required><br>
+        <textarea name="message" placeholder="メッセージ" required></textarea><br>
+        <div class="g-recaptcha" data-sitekey="6LeVohgqAAAAAM1Rv97ulZtgvb3NtNHnXsfSqF_o"></div>
+        <input type="submit" value="送信">
+    </form>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (grecaptcha.getResponse() === '') {
+                alert('reCAPTCHAを完了してください。');
+            } else {
+                this.submit();
+            }
+        });
+    </script>
 </body>
 </html>
